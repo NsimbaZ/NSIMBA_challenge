@@ -38,17 +38,6 @@ resource "aws_instance" "bastion_host" {
   subnet_id              = aws_subnet.public_subnet.id
   associate_public_ip_address = true
 
-   user_data     = <<EOF
-
-    #!/bin/bash
-    yum update -y
-    yum install -y httpd.x86_64
-    systemctl start httpd.service
-    systemctl enable httpd.service
-    echo “Bastion host Hello World from $(hostname -f)” > /var/www/html/index.html
-
-  EOF 
-
   tags = {
     Name        = "${var.vpc_name}_bastion_host"
     Terraform   = "true"

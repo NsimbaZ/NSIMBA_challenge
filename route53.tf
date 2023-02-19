@@ -2,7 +2,7 @@ resource "aws_route53_zone" "comcast-app" {
   name = "nazdevops.tk"
 }
 
-resource "aws_route53_record" "comcast-app-ns" {
+resource "aws_route53_record" "www" {
 
   # certificate validation; adding in record
    for_each = {
@@ -16,8 +16,13 @@ resource "aws_route53_record" "comcast-app-ns" {
 
   allow_overwrite = true
   zone_id = "Z023320217P2O1T0GPN6C"
-  name    = "comcast.nazdevops.tk"
-  type    = "CNAME"
-  ttl     = "30" # time before expiration of record from cache (in seconds)
-  records = [aws_lb.comcast_alb.dns_name] # adds load balancer to record
+  name    = "www.nazdevops.tk"
+  type    = "A"
+  #ttl     = "60" # time before expiration of record from cache (in seconds)
+  
+    alias {
+    name                   = aws_lb.comcast_alb.dns_name
+    zone_id                = aws_lb.comcast_alb.zone_id
+    evaluate_target_health = true
+  }
 }
