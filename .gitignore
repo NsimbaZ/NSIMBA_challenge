@@ -5,3 +5,6 @@
 *.tfstate
 *.tfstate.*
 .terraform.*
+
+# key
+*.pem
