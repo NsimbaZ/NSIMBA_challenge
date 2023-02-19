@@ -17,7 +17,15 @@ resource "aws_instance" "appserver_1a" {
     yum install -y httpd.x86_64
     systemctl start httpd.service
     systemctl enable httpd.service
-    echo “Hello World from $(hostname -f)” > /var/www/html/index.html
+    echo "<!DOCTYPE html>" > /var/www/html/index.html
+    echo "<html>" >> /var/www/html/index.html
+    echo "<head>" >> /var/www/html/index.html
+    echo "<title>Hello World</title>" >> /var/www/html/index.html
+    echo "</head>" >> /var/www/html/index.html
+    echo "<body>" >> /var/www/html/index.html
+    echo "<h1>Hello World!</h1>" >> /var/www/html/index.html
+    echo "</body>" >> /var/www/html/index.html
+    echo "</html>" >> /var/www/html/index.html
 
   EOF 
 
